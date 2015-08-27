@@ -4,12 +4,18 @@
 #define EVENT_LIGHT_TURN_OFF 1
 #define EVENT_LIGHT_TURN_MODE 2
 
+#define EVENT_PRINT_NUMBER 10
+
 #ifndef EventDelegator_h
 #define EventDelegator_h
 
 class EventDelegator {
   public:
-    String Execute(int eventId, String& arguments);
+    virtual String Execute(int eventId, String arguments) {};
+    
+    virtual void Update() {};
+    virtual void Init() {};
+    virtual void Loop() {};
 };
 
 #endif
@@ -22,17 +28,15 @@ class EventListener {
 
       virtual ~EventListener() {};
 
-      void Init(EventDelegator* delegator) {
-        this->delegator = delegator;
+      virtual void Init() {
       }
 
       /* Called on an external trigger */
-      virtual String Process(int eventId, String& arguments) = 0;
+      virtual String Process(int eventId, String& arguments) {};
       /* Called every 100ms, to update the state of the listener*/
-      virtual void Update() = 0;
-
-    private:
-      EventDelegator* delegator;
+      virtual void Update() {};
+      /* Called on each update cycle*/
+      virtual void Loop() {};
 };
 
 #endif

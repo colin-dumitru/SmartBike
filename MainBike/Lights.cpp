@@ -16,6 +16,7 @@ String Lights::Process(int eventId, String& arguments) {
       mode = arguments == "blink" ? LIGHT_MODE_BLINK : LIGHT_MODE_CONSTANT;
       break;
   }
+  return "";
 }
 
 void Lights::Update() {
